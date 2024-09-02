@@ -22,8 +22,8 @@ class TrainerController extends Controller
     public function index()
     {
         try {
-            $user = User::all();
-            if (empty($user)) {
+            $user = User::with('formation')->get();
+            if ($user->isEmpty()) {
                 return response()->json([
                     "status" => 200,
                     "message" => "La liste des trainers est vide"
