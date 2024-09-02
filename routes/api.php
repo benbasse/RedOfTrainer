@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\TrainerController;
+use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+
+    'middleware' => 'api',
+
+], function ($router) {
+
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class,'refresh']);
+    Route::post('me', [AuthController::class,'me']);
+
+});
+
+
+//Trainer
+Route::post('trainer/register', [TrainerController::class, 'register']);
+Route::delete('Trainer/deleteAccount/{id}', [TrainerController::class, 'destroy']);
+Route::get('Trainer/list', [TrainerController::class, 'index']);
+
+Route::middleware(['auth:api', 'access:trainer'])->group(function(){
+    Route::post('Trainer/editAccount/{id}' ,[TrainerController::class, 'updateTrainer']);
+    Route::post('Trainer/editPassword', [TrainerController::class, 'editPassword']);
+    Route::get('Trainer/about/{id}', [TrainerController::class, 'show']);
 });
