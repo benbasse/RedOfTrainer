@@ -27,7 +27,7 @@ class Facture extends Model
         'auto_reminder',
     ];
 
-    public function user(){
+    public function User(){
         return $this->belongsToMany(User::class, 'user_id');
     }
 
@@ -35,7 +35,7 @@ class Facture extends Model
         return $this->hasMany(Line_items::class, 'facture_id');
     }
 
-    public function client(){
+    public function Client(){
         return $this->belongsToMany(Client::class, 'client_id');
     }
 

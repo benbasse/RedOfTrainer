@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\FormationController;
 use App\Http\Controllers\API\TrainerController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ClientController;
 use App\Models\Formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,10 @@ Route::group([
 
 });
 
+//Clients
+Route::get('Clients', [ClientController::class, 'index']);
+
+
 // formations
 Route::get('Formations', [FormationController::class, 'index']);
 
@@ -52,4 +57,10 @@ Route::middleware(['auth:api', 'access:trainer'])->group(function(){
     Route::put('Formation/edit/{id}', [FormationController::class, 'update']);
     Route::get('Formation/listFormationTrainer', [FormationController::class, 'listFormationTrainer']);
 
+    //Clients
+    Route::get('Client/listClientTrainer', [ClientController::class, 'listClientTrainer']);
+    Route::post('Client/add', [ClientController::class, 'store']);
+    Route::put('Client/edit/{id}', [ClientController::class, 'update']);
+    Route::get('Client/about/{id}', [ClientController::class, 'show']);
+    Route::delete('Client/delete/{id}', [ClientController::class, 'destroy']);
 });

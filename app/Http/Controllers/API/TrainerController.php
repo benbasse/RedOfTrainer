@@ -22,7 +22,7 @@ class TrainerController extends Controller
     public function index()
     {
         try {
-            $user = User::with('formation')->get();
+            $user = User::with('Formation')->with('Client')->get();
             if ($user->isEmpty()) {
                 return response()->json([
                     "status" => 200,
@@ -42,7 +42,7 @@ class TrainerController extends Controller
     public function show(int $id)
     {
         try {
-            $user = User::find($id);
+            $user = User::with('Client')->with('Formation')->find($id);
             if (!$user) {
                 return $this->errorResponse('Utilisateur non trouvé');
             } else {

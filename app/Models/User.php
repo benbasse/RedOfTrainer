@@ -69,15 +69,15 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-    public function formation(){
-        return $this->hasMany(Formation::class, 'user_id');
+    public function Formation(){
+        return $this->hasMany(Formation::class);
     }
 
-    public function client(){
-        return $this->hasMany(Client::class, 'user_id');
+    public function Client(){
+        return $this->hasMany(Client::class);
     }
 
-    public function facture(){
+    public function Facture(){
         return $this->belongsToMany(Facture::class, 'user_id');
     }
 }
