@@ -16,7 +16,7 @@ class Formation extends Model
         'user_id',
     ];
 
-    public function user(){
+    public function User(){
         return $this->belongsToMany(User::class, 'user_id');
     }
 }
