@@ -19,7 +19,7 @@ class ClientController extends Controller
     public function index()
     {
         try {
-            $client = Client::with('User')->get();
+            $client = Client::all();
             if (!$client->isEmpty()) {
                 return $this->succesResponse($client, 'liste de tous les clients');
             } else {
