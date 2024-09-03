@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Facture\AddFactureRequest;
 use App\Http\Requests\Facture\EditFactureRequest;
+use App\Mail\FactureMail;
 use App\Models\Client;
 use App\Models\Facture;
 use App\Models\Line_items;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 
 class FactureController extends Controller
 {
@@ -101,6 +103,7 @@ class FactureController extends Controller
 
             // Sauvegarde finale de la facture avec les montants mis à jour
             $facture->save();
+            Mail::to($facture->sent_to)->send(new FactureMail($facture));
             return $this->succesResponse($facture, 'Facture créée avec succès');
         } catch (Exception $e) {
             return response()->json($e);

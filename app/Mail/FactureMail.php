@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\Facture;
+use App\Models\Line_items;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,12 +15,14 @@ class FactureMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $facture;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Facture $facture)
     {
-        //
+        $this->facture = $facture->load('line_items');
     }
 
     /**
@@ -27,7 +31,7 @@ class FactureMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Facture Mail',
+            subject: 'Facture ' . $this->facture->facture_number,
         );
     }
 
@@ -38,6 +42,9 @@ class FactureMail extends Mailable
     {
         return new Content(
             view: 'Mail.facture',
+            with: [
+                'facture' => $this->facture,
+            ]
         );
     }
 
