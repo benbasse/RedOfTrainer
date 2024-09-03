@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\FactureController;
 use App\Http\Controllers\API\FormationController;
 use App\Http\Controllers\API\TrainerController;
 use App\Http\Controllers\API\AuthController;
@@ -32,6 +33,12 @@ Route::group([
 
 });
 
+// Facture
+Route::get('Facture/list', [FactureController::class, 'index']);
+Route::get('Facture/about/{id}', [FactureController::class, 'show']);
+Route::delete('Facture/delete/{id}', [FactureController::class, 'destroy']);
+
+
 //Clients
 Route::get('Clients', [ClientController::class, 'index']);
 
@@ -63,4 +70,9 @@ Route::middleware(['auth:api', 'access:trainer'])->group(function(){
     Route::put('Client/edit/{id}', [ClientController::class, 'update']);
     Route::get('Client/about/{id}', [ClientController::class, 'show']);
     Route::delete('Client/delete/{id}', [ClientController::class, 'destroy']);
+
+    //Facture
+    Route::post('Facture/add', [FactureController::class, 'store']);
+    Route::put('Facture/edit/{id}', [FactureController::class, 'update']);
+    Route::get('Facture/ListFactureTrainer', [FactureController::class, 'ListFactureTrainer']);
 });
