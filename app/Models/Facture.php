@@ -28,7 +28,7 @@ class Facture extends Model
     ];
 
     public function User(){
-        return $this->belongsToMany(User::class, 'user_id');
+        return $this->belongsToMany(User::class);
     }
 
     public function line_items(){
