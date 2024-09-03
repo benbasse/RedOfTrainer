@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->string('facture_number')->unique();
             $table->foreignIdFor(Client::class);
-            $table->foreignIdFor(Line_items::class);
             $table->foreignIdFor(User::class);
             $table->date('due_date');
             $table->integer('total_amount_ht');
