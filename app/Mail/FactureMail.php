@@ -7,6 +7,7 @@ use App\Models\Line_items;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -17,12 +18,15 @@ class FactureMail extends Mailable
 
     public $facture;
 
+    public $emailFrom;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(Facture $facture)
+    public function __construct(Facture $facture, $email)
     {
         $this->facture = $facture->load('line_items');
+        $this->emailFrom = $email;
     }
 
     /**
@@ -32,6 +36,9 @@ class FactureMail extends Mailable
     {
         return new Envelope(
             subject: 'Facture ' . $this->facture->facture_number,
+            replyTo: [
+                new Address($this->emailFrom),
+            ]
         );
     }
 
@@ -44,6 +51,7 @@ class FactureMail extends Mailable
             view: 'Mail.facture',
             with: [
                 'facture' => $this->facture,
+                'replyTo' => $this->emailFrom,
             ]
         );
     }
