@@ -12,6 +12,7 @@
     <p>Montant total (HT) : ${{ $facture->total_amount_ht }}</p>
     <p>TVA : ${{ $facture->total_vat }}</p>
     <p>Montant total (TTC) : ${{ $facture->total_amount_ttc }}</p>
+    <p>Reply to : ${{ $emailFrom }}</p>
 
     <h2>Détails des articles</h2>
     <ul>
