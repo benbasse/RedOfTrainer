@@ -5,6 +5,7 @@ use App\Http\Controllers\API\FormationController;
 use App\Http\Controllers\API\TrainerController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClientController;
+use App\Http\Controllers\API\DevisController;
 use App\Models\Formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -75,4 +76,12 @@ Route::middleware(['auth:api', 'access:trainer'])->group(function(){
     Route::post('Facture/add', [FactureController::class, 'store']);
     Route::put('Facture/edit/{id}', [FactureController::class, 'update']);
     Route::get('Facture/ListFactureTrainer', [FactureController::class, 'ListFactureTrainer']);
+
+    //Devis
+    Route::post('Devis/add', [DevisController::class, 'store']);
+    Route::put('Devis/edit/{id}', [DevisController::class, 'update']);
+    Route::get('Devis/listDevisTrainer', [DevisController::class, 'ListDevisTrainer']);
+    Route::get('Devis/list', [DevisController::class, 'index']);
+    Route::get('Devis/about/{id}', [DevisController::class, 'show']);
+    Route::delete('Devis/delete/{id}', [DevisController::class, 'destroy']);
 });
