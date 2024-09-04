@@ -103,7 +103,8 @@ class FactureController extends Controller
 
             // Sauvegarde finale de la facture avec les montants mis à jour
             $facture->save();
-            Mail::to($facture->sent_to)->send(new FactureMail($facture));
+            $userEmailFrom = auth()->user()->email;
+            Mail::to($facture->sent_to)->send(new FactureMail($facture, $userEmailFrom));
             return $this->succesResponse($facture, 'Facture créée avec succès');
         } catch (Exception $e) {
             return response()->json($e);
