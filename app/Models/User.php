@@ -84,4 +84,8 @@ class User extends Authenticatable implements JWTSubject
     public function Devis(){
         return $this->hasMany(Devis::class, 'user_id');
     }
+
+    public function Session(){
+        return $this->hasMany(Session::class);
+    }
 }

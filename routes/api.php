@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\FactureController;
 use App\Http\Controllers\API\FormationController;
+use App\Http\Controllers\API\SessionController;
 use App\Http\Controllers\API\TrainerController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClientController;
@@ -84,4 +85,13 @@ Route::middleware(['auth:api', 'access:trainer'])->group(function(){
     Route::get('Devis/list', [DevisController::class, 'index']);
     Route::get('Devis/about/{id}', [DevisController::class, 'show']);
     Route::delete('Devis/delete/{id}', [DevisController::class, 'destroy']);
+
+    //route upload 
+    Route::post('upload', [SessionController::class, 'storeFileDatabase']);
+    //Session
+    Route::get('Session/list', [SessionController::class, 'index']);
+    Route::post('Session/add', [SessionController::class, 'store']);
+    Route::get('Session/about/{id}', [SessionController::class, 'show']);
+    Route::get('Session/delete/{id}', [SessionController::class, 'destroy']);
+    Route::get('Session/listSessionTrainer', [SessionController::class, 'listSessionTrainer']);
 });
