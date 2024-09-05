@@ -88,4 +88,8 @@ class User extends Authenticatable implements JWTSubject
     public function Session(){
         return $this->hasMany(Session::class);
     }
+
+    public function Bilan(){
+        return $this->hasMany(Bilan::class, 'user_id');
+    }
 }

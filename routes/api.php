@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\BilanController;
 use App\Http\Controllers\API\FactureController;
 use App\Http\Controllers\API\FormationController;
 use App\Http\Controllers\API\SessionController;
@@ -34,6 +35,7 @@ Route::group([
     Route::post('me', [AuthController::class,'me']);
 
 });
+
 
 // Facture
 Route::get('Facture/list', [FactureController::class, 'index']);
@@ -94,4 +96,8 @@ Route::middleware(['auth:api', 'access:trainer'])->group(function(){
     Route::get('Session/about/{id}', [SessionController::class, 'show']);
     Route::get('Session/delete/{id}', [SessionController::class, 'destroy']);
     Route::get('Session/listSessionTrainer', [SessionController::class, 'listSessionTrainer']);
+
+    //Bilan
+    Route::post('Bilan', [BilanController::class, 'generateBilanForCurrentYear']);
 });
+    Route::get('Bilan/endYear', [BilanController::class, 'allBilan']);
